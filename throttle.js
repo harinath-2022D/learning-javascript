@@ -11,6 +11,8 @@ function updateFn(){
     shotGunBullets++;
     shotGunSpan.innerText = shotGunBullets;
 }
+/* 1st method using date fn
+
 const throttleFn = (callBackFn, coolDownTime)=>{
     let lastExcutedTime = 0;
     return function(...args){
@@ -21,6 +23,21 @@ const throttleFn = (callBackFn, coolDownTime)=>{
         }else{
             callBackFn(...args);
             lastExcutedTime = currTime;
+        }
+    }
+}
+*/
+
+// 2nd method without  date fn
+const throttleFn = (callBackFn, coolDownTime)=>{
+    let execute = true;
+    return function(...args){
+        if(execute){
+            callBackFn(...args);
+            execute = false; // we are in cool down period
+            setTimeout(()=>{
+                execute = true;
+            },coolDownTime);
         }
     }
 }
